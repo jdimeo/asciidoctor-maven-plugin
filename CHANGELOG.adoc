@@ -21,6 +21,7 @@ Bug Fixes::
 
 Improvements::
 
+  * Make the site module compatible with maven-site-plugin v4.x.x (#585, #590)
   * Split plugin and site integration in sub-modules: asciidoctor-maven-plugin and asciidoctor-doxia-module (#595)
   * Add 'asciidoc' as valid file extension in AsciidoctorDoxiaParserModule (#595)
   * Fix throwing an exception when registering a non Extension (#596)

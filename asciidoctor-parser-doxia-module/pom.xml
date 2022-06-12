@@ -15,7 +15,12 @@
 
     <name>Asciidoctor Parser Doxia Module</name>
     <description>Asciidoctor Doxia Module based on Asciidoctor AST processing (for Maven Site integration)</description>
-    <url>https://github.com/asciidoctor/asciidoctor-maven-plugin</url>
+
+    <properties>
+        <doxia.version>2.0.0-M6</doxia.version>
+        <maven.coveralls.plugin.version>4.3.0</maven.coveralls.plugin.version>
+        <plexus.component.metadata.version>2.1.1</plexus.component.metadata.version>
+    </properties>
 
     <dependencies>
         <dependency>
@@ -36,7 +41,7 @@
         <dependency>
             <groupId>org.apache.maven</groupId>
             <artifactId>maven-core</artifactId>
-            <version>${maven.version}</version>
+            <version>${maven.project.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -52,7 +57,7 @@
         <dependency>
             <groupId>org.apache.maven.doxia</groupId>
             <artifactId>doxia-site-renderer</artifactId>
-            <version>1.11.1</version>
+            <version>${doxia.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -62,7 +67,7 @@
             <plugin>
                 <groupId>org.codehaus.plexus</groupId>
                 <artifactId>plexus-component-metadata</artifactId>
-                <version>${plexus-component-metadata.version}</version>
+                <version>${plexus.component.metadata.version}</version>
                 <executions>
                     <execution>
                         <goals>
@@ -74,8 +79,51 @@
             <plugin>
                 <groupId>org.eluder.coveralls</groupId>
                 <artifactId>coveralls-maven-plugin</artifactId>
+                <version>${maven.coveralls.plugin.version}</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>jakarta.xml.bind</groupId>
+                        <artifactId>jakarta.xml.bind-api</artifactId>
+                        <version>2.3.3</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.glassfish.jaxb</groupId>
+                        <artifactId>jaxb-runtime</artifactId>
+                        <version>2.3.3</version>
+                    </dependency>
+                </dependencies>
             </plugin>
         </plugins>
+
+        <pluginManagement>
+            <plugins>
+                <!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
+                <plugin>
+                    <groupId>org.eclipse.m2e</groupId>
+                    <artifactId>lifecycle-mapping</artifactId>
+                    <version>1.0.0</version>
+                    <configuration>
+                        <lifecycleMappingMetadata>
+                            <pluginExecutions>
+                                <pluginExecution>
+                                    <pluginExecutionFilter>
+                                        <groupId>org.codehaus.plexus</groupId>
+                                        <artifactId>plexus-component-metadata</artifactId>
+                                        <versionRange>[${plexus.component.metadata.version},)</versionRange>
+                                        <goals>
+                                            <goal>generate-metadata</goal>
+                                        </goals>
+                                    </pluginExecutionFilter>
+                                    <action>
+                                        <execute/>
+                                    </action>
+                                </pluginExecution>
+                            </pluginExecutions>
+                        </lifecycleMappingMetadata>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
     </build>
 
 </project>

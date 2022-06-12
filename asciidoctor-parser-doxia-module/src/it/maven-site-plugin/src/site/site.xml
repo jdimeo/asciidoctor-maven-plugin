@@ -1,8 +1,14 @@
 <project name="Maven Site Plugin IT">
     <body>
+        <menu ref="reports"/>
         <menu name="AsciiDoc Pages">
             <item name="Sample" href="sample.html"/>
         </menu>
-      ${reports}
     </body>
+    <!-- Skins are mandatory since maven-site-plugin v4.0.0-M2 -->
+    <skin>
+        <groupId>org.apache.maven.skins</groupId>
+        <artifactId>maven-fluido-skin</artifactId>
+        <version>2.0.0-M6</version>
+    </skin>
 </project>
