@@ -127,7 +127,7 @@ class HtmlAsserter {
     }
 
     void containsOrderedList(String... values) {
-        def found = find("<ol style=\"list-style-type: decimal\"><li>${values.join('</li><li>')}</li></ol>")
+        def found = find("<ol style=\"list-style-type: decimal;\"><li>${values.join('</li><li>')}</li></ol>")
         assertFound("Ordered list", values.join(','), found)
     }
 
