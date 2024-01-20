@@ -2,7 +2,6 @@ package org.asciidoctor.maven.site.ast;
 
 import org.apache.maven.doxia.parser.AbstractTextParser;
 import org.apache.maven.doxia.parser.ParseException;
-import org.apache.maven.doxia.parser.Parser;
 import org.apache.maven.doxia.sink.Sink;
 import org.apache.maven.project.MavenProject;
 import org.asciidoctor.*;
@@ -14,14 +13,15 @@ import org.asciidoctor.maven.log.MemoryLogHandler;
 import org.asciidoctor.maven.site.SiteConversionConfiguration;
 import org.asciidoctor.maven.site.SiteConversionConfigurationParser;
 import org.asciidoctor.maven.site.SiteLogHandlerDeserializer;
-import org.codehaus.plexus.component.annotations.Component;
 import org.codehaus.plexus.util.IOUtil;
 import org.codehaus.plexus.util.xml.Xpp3Dom;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 import javax.inject.Provider;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.Reader;
@@ -35,7 +35,7 @@ import static org.asciidoctor.maven.commons.StringUtils.isNotBlank;
  *
  * @author abelsromero
  */
-@Component(role = Parser.class, hint = AsciidoctorAstDoxiaParser.ROLE_HINT)
+@Named(AsciidoctorAstDoxiaParser.ROLE_HINT)
 public class AsciidoctorAstDoxiaParser extends AbstractTextParser {
 
     private final Logger logger = LoggerFactory.getLogger(AsciidoctorAstDoxiaParser.class);
