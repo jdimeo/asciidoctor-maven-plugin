@@ -6,6 +6,7 @@ import org.asciidoctor.extension.PreprocessorReader;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.Map;
@@ -32,7 +33,7 @@ public class UriIncludeProcessor extends IncludeProcessor {
     }
 
     private String readContent(String target) {
-        try (var openStream = new URL(target).openStream()) {
+        try (InputStream openStream = new URL(target).openStream()) {
             try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(openStream))) {
                 return bufferedReader.lines()
                         .collect(Collectors.joining("\n"));

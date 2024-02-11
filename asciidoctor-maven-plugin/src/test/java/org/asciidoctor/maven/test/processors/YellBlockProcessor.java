@@ -1,19 +1,22 @@
 package org.asciidoctor.maven.test.processors;
 
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.stream.Collectors;
+
 import org.asciidoctor.ast.StructuralNode;
 import org.asciidoctor.extension.BlockProcessor;
 import org.asciidoctor.extension.Reader;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
+import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.Maps;
 
 public class YellBlockProcessor extends BlockProcessor {
 
     @SuppressWarnings("serial")
-    private static Map<String, Object> configs = Map.of(
-            "contexts", List.of(":listing"),
+    private static Map<String, Object> configs = ImmutableMap.of(
+            "contexts", Arrays.asList(":listing"),
             "content_model", ":compound"
     );
 
@@ -28,6 +31,6 @@ public class YellBlockProcessor extends BlockProcessor {
                 .map(String::toUpperCase)
                 .collect(Collectors.joining("\n"));
 
-        return createBlock(parent, "paragraph", List.of(upperLines), attributes, new HashMap<>());
+        return createBlock(parent, "paragraph", Arrays.asList(upperLines), attributes, new HashMap<>());
     }
 }

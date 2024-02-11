@@ -1,5 +1,17 @@
 package org.asciidoctor.maven;
 
+import static org.asciidoctor.log.Severity.ERROR;
+import static org.asciidoctor.log.Severity.WARN;
+import static org.asciidoctor.maven.TestUtils.mockAsciidoctorMojo;
+import static org.asciidoctor.maven.io.TestFilesHelper.newOutputTestDirectory;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.catchThrowable;
+
+import java.io.File;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.asciidoctor.maven.io.ConsoleHolder;
@@ -8,18 +20,7 @@ import org.asciidoctor.maven.log.LogHandler;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
-import java.io.File;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
-
-import static org.asciidoctor.log.Severity.ERROR;
-import static org.asciidoctor.log.Severity.WARN;
-import static org.asciidoctor.maven.TestUtils.mockAsciidoctorMojo;
-import static org.asciidoctor.maven.io.TestFilesHelper.newOutputTestDirectory;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.catchThrowable;
+import com.google.common.collect.ImmutableMap;
 
 
 class AsciidoctorMojoLogHandlerTest {
@@ -145,7 +146,7 @@ class AsciidoctorMojoLogHandlerTest {
         mojo.sourceDocumentName = sourceDocument;
         mojo.outputDirectory = outputDir;
         mojo.standalone = true;
-        mojo.attributes = Map.of("toc", null);
+        mojo.attributes = ImmutableMap.of("toc", null);
         mojo.enableVerbose = true;
         mojo.execute();
 

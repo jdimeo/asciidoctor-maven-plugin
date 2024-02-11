@@ -1,11 +1,11 @@
 package org.asciidoctor.maven.test.processors;
 
+import java.util.Arrays;
+import java.util.Map;
+
 import org.asciidoctor.ast.Block;
 import org.asciidoctor.ast.StructuralNode;
 import org.asciidoctor.extension.BlockMacroProcessor;
-
-import java.util.List;
-import java.util.Map;
 
 public class GistBlockMacroProcessor extends BlockMacroProcessor {
 
@@ -21,6 +21,6 @@ public class GistBlockMacroProcessor extends BlockMacroProcessor {
                 "<script src=\"https://gist.github.com/" + target + ".js\"></script>\n" +
                 "</div>";
 
-        return createBlock(parent, "pass", List.of(content), attributes);
+        return createBlock(parent, "pass", Arrays.asList(content), attributes);
     }
 }
