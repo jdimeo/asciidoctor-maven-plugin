@@ -16,7 +16,7 @@ public class AsciidoctorAsserter {
     @SneakyThrows
     private AsciidoctorAsserter(File generatedFile) {
         this.fileAssert = Assertions.assertThat(generatedFile);
-        this.contentAssert = Assertions.assertThat(Files.readString(generatedFile.toPath()));
+        this.contentAssert = Assertions.assertThat(new String(Files.readAllBytes(generatedFile.toPath())));
     }
 
     public static AsciidoctorAsserter assertThat(File file) {

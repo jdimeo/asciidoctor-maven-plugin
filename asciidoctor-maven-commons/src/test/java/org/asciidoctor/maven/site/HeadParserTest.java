@@ -1,12 +1,14 @@
 package org.asciidoctor.maven.site;
 
+import static org.mockito.Mockito.times;
+
+import java.util.Collections;
+
 import org.apache.maven.doxia.sink.Sink;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-import java.util.List;
-
-import static org.mockito.Mockito.times;
+import com.google.common.collect.ImmutableList;
 
 class HeadParserTest {
 
@@ -14,7 +16,7 @@ class HeadParserTest {
     void should_inject_title() {
         final Sink sinkSpy = Mockito.spy(Sink.class);
 
-        var headerMetadata = new HeaderMetadata("test title", List.of(), null);
+        HeaderMetadata headerMetadata = new HeaderMetadata("test title", Collections.emptyList(), null);
         new HeadParser(sinkSpy).parse(headerMetadata);
 
         Mockito.verify(sinkSpy).head();
@@ -32,7 +34,7 @@ class HeadParserTest {
     void should_inject_author() {
         final Sink sinkSpy = Mockito.spy(Sink.class);
 
-        var headerMetadata = new HeaderMetadata(null, List.of("an author"), null);
+        HeaderMetadata headerMetadata = new HeaderMetadata(null, ImmutableList.of("an author"), null);
         new HeadParser(sinkSpy).parse(headerMetadata);
 
         Mockito.verify(sinkSpy).head();
@@ -51,7 +53,7 @@ class HeadParserTest {
     void should_inject_date() {
         final Sink sinkSpy = Mockito.spy(Sink.class);
 
-        var headerMetadata = new HeaderMetadata(null, List.of(), "2024-11-22");
+        HeaderMetadata headerMetadata = new HeaderMetadata(null, Collections.emptyList(), "2024-11-22");
         new HeadParser(sinkSpy).parse(headerMetadata);
 
         Mockito.verify(sinkSpy).head();

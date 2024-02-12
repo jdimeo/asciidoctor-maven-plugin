@@ -1,12 +1,14 @@
 package org.asciidoctor.maven.test;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import java.util.Map;
 
 import org.asciidoctor.maven.AsciidoctorMojo;
 import org.asciidoctor.maven.log.LogHandler;
 import org.junit.jupiter.api.Test;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import com.google.common.collect.ImmutableMap;
 
 class MojoMockerTest {
 
@@ -21,7 +23,7 @@ class MojoMockerTest {
 
     @Test
     void should_mock_mojo_with_properties() {
-        Map<String, String> properties = Map.of("a-key", "a-value");
+        Map<String, String> properties = ImmutableMap.of("a-key", "a-value");
         AsciidoctorMojo mock = mojoMocker.mock(AsciidoctorMojo.class, properties, null);
 
         assertThat(mock).isNotNull();

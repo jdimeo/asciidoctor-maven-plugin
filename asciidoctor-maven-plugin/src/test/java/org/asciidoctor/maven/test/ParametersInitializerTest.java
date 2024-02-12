@@ -13,8 +13,8 @@ class ParametersInitializerTest {
 
     @Test
     void should_return_same_instance() {
-        final var instance = new Simple();
-        var actual = initializer.initialize(instance);
+        final Simple instance = new Simple();
+        Simple actual = initializer.initialize(instance);
         assertThat(actual).isEqualTo(instance);
     }
 
@@ -23,29 +23,29 @@ class ParametersInitializerTest {
 
         @Test
         void string_with_default_value() {
-            final var instance = new StringExampleMojo();
-            var initialized = initializer.initialize(instance);
+            final StringExampleMojo instance = new StringExampleMojo();
+            StringExampleMojo initialized = initializer.initialize(instance);
             assertThat(initialized.defaultValue).isEqualTo("a-value");
         }
 
         @Test
         void boolean_with_default_value() {
-            final var instance = new BooleanExampleMojo();
-            var initialized = initializer.initialize(instance);
+            final BooleanExampleMojo instance = new BooleanExampleMojo();
+            BooleanExampleMojo initialized = initializer.initialize(instance);
             assertThat(initialized.defaultValue).isTrue();
         }
 
         @Test
         void int_with_default_value() {
-            final var instance = new IntExampleMojo();
-            var initialized = initializer.initialize(instance);
+            final IntExampleMojo instance = new IntExampleMojo();
+            IntExampleMojo initialized = initializer.initialize(instance);
             assertThat(initialized.defaultValue).isEqualTo(1243);
         }
 
         @Test
         void properties_in_class_and_parent() {
-            final var instance = new SubclassExampleMojo();
-            var initialized = initializer.initialize(instance);
+            final SubclassExampleMojo instance = new SubclassExampleMojo();
+            SubclassExampleMojo initialized = initializer.initialize(instance);
             assertThat(initialized.getDefaultValue()).isEqualTo("a-value");
             assertThat(initialized.getNonDefaultValue()).isNull();
             assertThat(initialized.anotherValue).isEqualTo("from-subclass");
@@ -57,22 +57,22 @@ class ParametersInitializerTest {
 
         @Test
         void string_without_default_value() {
-            final var instance = new StringExampleMojo();
-            var initialized = initializer.initialize(instance);
+            final StringExampleMojo instance = new StringExampleMojo();
+            StringExampleMojo initialized = initializer.initialize(instance);
             assertThat(initialized.nonDefaultValue).isNull();
         }
 
         @Test
         void boolean_without_default_value() {
-            final var instance = new BooleanExampleMojo();
-            var initialized = initializer.initialize(instance);
+            final BooleanExampleMojo instance = new BooleanExampleMojo();
+            BooleanExampleMojo initialized = initializer.initialize(instance);
             assertThat(initialized.nonDefaultValue).isFalse();
         }
 
         @Test
         void int_without_default_value() {
-            final var instance = new IntExampleMojo();
-            var initialized = initializer.initialize(instance);
+            final IntExampleMojo instance = new IntExampleMojo();
+            IntExampleMojo initialized = initializer.initialize(instance);
             assertThat(initialized.nonDefaultValue).isEqualTo(0);
         }
     }
@@ -82,7 +82,7 @@ class ParametersInitializerTest {
 
         @Test
         void boolean_with_invalid_value() {
-            final var instance = new FailingBooleanExampleMojo();
+            final FailingBooleanExampleMojo instance = new FailingBooleanExampleMojo();
             Throwable t = catchThrowable(() -> initializer.initialize(instance));
 
             assertThat(t).isInstanceOf(RuntimeException.class)
@@ -91,7 +91,7 @@ class ParametersInitializerTest {
 
         @Test
         void int_with_invalid_value() {
-            final var instance = new FailingIntExampleMojo();
+            final FailingIntExampleMojo instance = new FailingIntExampleMojo();
             Throwable t = catchThrowable(() -> initializer.initialize(instance));
 
             assertThat(t).isInstanceOf(RuntimeException.class)

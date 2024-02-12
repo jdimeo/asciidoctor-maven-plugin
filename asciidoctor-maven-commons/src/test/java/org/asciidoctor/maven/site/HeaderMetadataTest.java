@@ -30,7 +30,7 @@ class HeaderMetadataTest {
     void should_extract_title_from_header(String content) {
         Document document = document(content);
 
-        final var headerMetadata = HeaderMetadata.from(document);
+        final HeaderMetadata headerMetadata = HeaderMetadata.from(document);
 
         assertThat(headerMetadata.getTitle()).isEqualTo("Hello, AsciiDoc!");
     }
@@ -48,7 +48,7 @@ class HeaderMetadataTest {
             .build();
         Document document = document("= Hello, {who}!\n", options);
 
-        final var headerMetadata = HeaderMetadata.from(document);
+        final HeaderMetadata headerMetadata = HeaderMetadata.from(document);
 
         assertThat(headerMetadata.getTitle()).isEqualTo("Hello, me!");
     }
@@ -59,7 +59,7 @@ class HeaderMetadataTest {
     void should_extract_author(String content, String expected) {
         Document document = document(content + "\n", defaultOptions());
 
-        final var headerMetadata = HeaderMetadata.from(document);
+        final HeaderMetadata headerMetadata = HeaderMetadata.from(document);
 
         assertThat(headerMetadata.getAuthors())
             .containsExactly(expected);
@@ -80,7 +80,7 @@ class HeaderMetadataTest {
         Options options = optionsWithAttributes(Collections.singletonMap("author", "From Attr"));
         Document document = document(content + "\n", options);
 
-        final var headerMetadata = HeaderMetadata.from(document);
+        final HeaderMetadata headerMetadata = HeaderMetadata.from(document);
 
         assertThat(headerMetadata.getAuthors())
             .containsExactly("From Attr");
@@ -91,7 +91,7 @@ class HeaderMetadataTest {
         String content = "= Hello, AsciiDoc!\nfirstname1 lastname2; firstname3 middlename4 lastname5";
         Document document = document(content + "\n", defaultOptions());
 
-        final var headerMetadata = HeaderMetadata.from(document);
+        final HeaderMetadata headerMetadata = HeaderMetadata.from(document);
 
         assertThat(headerMetadata.getAuthors())
             .containsExactlyInAnyOrder("firstname1 lastname2", "firstname3 middlename4 lastname5");
@@ -102,7 +102,7 @@ class HeaderMetadataTest {
         String content = "= Hello, AsciiDoc!";
         Document document = document(content + "\n", defaultOptions());
 
-        final var headerMetadata = HeaderMetadata.from(document);
+        final HeaderMetadata headerMetadata = HeaderMetadata.from(document);
 
         assertThat(headerMetadata.getDateTime()).matches("(\\d{4})-(\\d{2})-(\\d{2}) (\\d{2}):(\\d{2}):(\\d{2}) .*");
     }
@@ -113,7 +113,7 @@ class HeaderMetadataTest {
         Options options = optionsWithAttributes(Collections.singletonMap("docdatetime", "2024-11-22"));
         Document document = document(content + "\n", options);
 
-        final var headerMetadata = HeaderMetadata.from(document);
+        final HeaderMetadata headerMetadata = HeaderMetadata.from(document);
 
         assertThat(headerMetadata.getDateTime()).isEqualTo("2024-11-22");
     }

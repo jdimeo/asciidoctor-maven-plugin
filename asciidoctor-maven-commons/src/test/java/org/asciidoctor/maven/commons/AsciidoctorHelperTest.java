@@ -25,7 +25,7 @@ public class AsciidoctorHelperTest {
 
         addAttributes(attributes, attributesBuilder);
 
-        var attributesAsMap = attributesBuilder.build().map();
+        Map<String, Object> attributesAsMap = attributesBuilder.build().map();
         assertThat(attributesAsMap)
                 .containsExactly(MapEntry.entry("toc", expected));
     }

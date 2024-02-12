@@ -1,5 +1,12 @@
 package org.asciidoctor.maven;
 
+import static java.util.Collections.singletonList;
+import static org.asciidoctor.maven.AsciidoctorAsserter.assertThat;
+import static org.asciidoctor.maven.io.TestFilesHelper.newOutputTestDirectory;
+import static org.asciidoctor.maven.test.TestUtils.assertEqualsStructure;
+import static org.asciidoctor.maven.test.TestUtils.mockAsciidoctorMojo;
+import static org.asciidoctor.maven.test.TestUtils.ResourceBuilder.excludeAll;
+
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
@@ -7,31 +14,26 @@ import java.io.OutputStream;
 import java.io.PrintStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-import lombok.SneakyThrows;
 import org.apache.commons.io.FileUtils;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.asciidoctor.maven.extensions.ExtensionConfiguration;
 import org.asciidoctor.maven.io.ConsoleHolder;
+import org.asciidoctor.maven.test.TestUtils.ResourceBuilder;
 import org.asciidoctor.maven.test.processors.RequireCheckerTreeprocessor;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import static java.nio.file.Files.writeString;
-import static java.util.Collections.singletonList;
-import static org.asciidoctor.maven.AsciidoctorAsserter.assertThat;
-import static org.asciidoctor.maven.io.TestFilesHelper.newOutputTestDirectory;
-import static org.asciidoctor.maven.test.TestUtils.ResourceBuilder;
-import static org.asciidoctor.maven.test.TestUtils.ResourceBuilder.excludeAll;
-import static org.asciidoctor.maven.test.TestUtils.assertEqualsStructure;
-import static org.asciidoctor.maven.test.TestUtils.mockAsciidoctorMojo;
+import com.google.common.collect.ImmutableMap;
+
+import lombok.SneakyThrows;
 
 
 class AsciidoctorMojoTest {
@@ -167,7 +169,7 @@ class AsciidoctorMojoTest {
         mojo.sourceDocumentName = "sample.asciidoc";
         mojo.resources = excludeAll();
         mojo.outputDirectory = outputDir;
-        mojo.attributes = Map.of("toc", "",
+        mojo.attributes = ImmutableMap.of("toc", "",
                 "linkcss!", "",
                 "source-highlighter", "coderay");
 
@@ -244,7 +246,7 @@ class AsciidoctorMojoTest {
         // when
         AsciidoctorMojo mojo = mockAsciidoctorMojo();
         mojo.backend = "html5";
-        mojo.attributes = Map.of("icons", "font");
+        mojo.attributes = ImmutableMap.of("icons", "font");
         mojo.embedAssets = true;
         mojo.sourceDirectory = srcDir;
         mojo.sourceDocumentName = "sample-embedded.adoc";
@@ -271,7 +273,7 @@ class AsciidoctorMojoTest {
         // when
         AsciidoctorMojo mojo = mockAsciidoctorMojo();
         mojo.backend = "html5";
-        mojo.attributes = Map.of("icons", "font");
+        mojo.attributes = ImmutableMap.of("icons", "font");
         mojo.embedAssets = true;
         mojo.sourceDirectory = srcDir;
         mojo.sourceDocumentName = "sample-embedded.adoc";
@@ -301,8 +303,8 @@ class AsciidoctorMojoTest {
         File srcDir = new File(DEFAULT_SOURCE_DIRECTORY);
         outputDir.mkdirs();
 
-        writeString(Path.of(DEFAULT_SOURCE_DIRECTORY, "sample1.foo"), "= Document Title\n\nfoo");
-        writeString(Path.of(DEFAULT_SOURCE_DIRECTORY, "sample2.bar"), "= Document Title\n\nbar");
+        Files.write(Paths.get(DEFAULT_SOURCE_DIRECTORY, "sample1.foo"), "= Document Title\n\nfoo".getBytes());
+        Files.write(Paths.get(DEFAULT_SOURCE_DIRECTORY, "sample2.bar"), "= Document Title\n\nbar".getBytes());
 
         // when
         AsciidoctorMojo mojo = mockAsciidoctorMojo();
@@ -336,7 +338,7 @@ class AsciidoctorMojoTest {
         mojo.outputDirectory = outputDir;
         // IMPORTANT Maven can only assign string values or null, so we have to emulate the value precisely in the test!
         // Believe it or not, null is the equivalent of writing <toc/> in the XML configuration
-        mojo.attributes = Map.of("toc2", "true");
+        mojo.attributes = ImmutableMap.of("toc2", "true");
         mojo.execute();
 
         // then
@@ -359,7 +361,7 @@ class AsciidoctorMojoTest {
         mojo.outputDirectory = outputDir;
         // IMPORTANT Maven can only assign string values or null, so we have to emulate the value precisely in the test!
         // Believe it or not, null is the equivalent of writing <toc/> in the XML configuration
-        mojo.attributes = Map.of("toc2", "false");
+        mojo.attributes = ImmutableMap.of("toc2", "false");
         mojo.execute();
 
         // then
@@ -382,7 +384,7 @@ class AsciidoctorMojoTest {
         mojo.outputDirectory = outputDir;
         // IMPORTANT Maven can only assign string values or null, so we have to emulate the value precisely in the test!
         // Believe it or not, null is the equivalent of writing <toc/> in the XML configuration
-        mojo.attributes = Map.of("toc", "");
+        mojo.attributes = ImmutableMap.of("toc", "");
         mojo.execute();
 
         // then
@@ -414,7 +416,7 @@ class AsciidoctorMojoTest {
         mojo.outputDirectory = outputDir;
         mojo.preserveDirectories = true;
         mojo.relativeBaseDir = true;
-        mojo.attributes = Map.of("icons", "font");
+        mojo.attributes = ImmutableMap.of("icons", "font");
         mojo.execute();
 
         // then
@@ -455,7 +457,7 @@ class AsciidoctorMojoTest {
         mojo.outputDirectory = outputDir;
         mojo.preserveDirectories = true;
         mojo.relativeBaseDir = true;
-        mojo.attributes = Map.of("icons", "font");
+        mojo.attributes = ImmutableMap.of("icons", "font");
         mojo.execute();
 
         // then
@@ -542,7 +544,7 @@ class AsciidoctorMojoTest {
         mojo.preserveDirectories = true;
         mojo.baseDir = srcDir;
         //mojo.relativeBaseDir = true
-        mojo.attributes = Map.of("icons", "font");
+        mojo.attributes = ImmutableMap.of("icons", "font");
         mojo.execute();
 
         // then
@@ -582,7 +584,7 @@ class AsciidoctorMojoTest {
         mojo.outputDirectory = outputDir;
         mojo.preserveDirectories = false;
         mojo.relativeBaseDir = true;
-        mojo.attributes = Map.of("icons", "font");
+        mojo.attributes = ImmutableMap.of("icons", "font");
         mojo.execute();
 
         // then
@@ -793,7 +795,7 @@ class AsciidoctorMojoTest {
         mojo.sourceDocumentName = "sample-embedded.adoc";
         mojo.sourceDirectory = srcDir;
         mojo.outputDirectory = outputDir;
-        mojo.attributes = Map.of("icons", "font");
+        mojo.attributes = ImmutableMap.of("icons", "font");
         mojo.embedAssets = true;
         mojo.execute();
 
@@ -842,7 +844,7 @@ class AsciidoctorMojoTest {
         mojo.sourceDirectory = srcDir;
         mojo.sourceDocumentName = "imageDir.adoc";
         mojo.outputDirectory = outputDir;
-        mojo.attributes = Map.of("imagesdir", "custom-images-dir");
+        mojo.attributes = ImmutableMap.of("imagesdir", "custom-images-dir");
         mojo.execute();
 
         // then
@@ -862,7 +864,7 @@ class AsciidoctorMojoTest {
         mojo.sourceDocumentName = "attributes-example.adoc";
         mojo.sourceDirectory = srcDir;
         mojo.outputDirectory = outputDir;
-        mojo.attributes = Map.of(
+        mojo.attributes = ImmutableMap.of(
                 "plugin-configuration-attribute", "plugin configuration",
                 "execution-attribute", "execution configuration"
         );
@@ -882,7 +884,7 @@ class AsciidoctorMojoTest {
         File outputDir = newOutputTestDirectory("attributes");
         //  when
 
-        AsciidoctorMojo mojo = mockAsciidoctorMojo(Map.of("project.property.attribute", "project property configuration"));
+        AsciidoctorMojo mojo = mockAsciidoctorMojo(ImmutableMap.of("project.property.attribute", "project property configuration"));
         mojo.backend = "html5";
         mojo.sourceDocumentName = "attributes-example.adoc";
         mojo.sourceDirectory = srcDir;
@@ -907,7 +909,7 @@ class AsciidoctorMojoTest {
         mojo.sourceDocumentName = "sample.asciidoc";
         mojo.sourceDirectory = srcDir;
         mojo.outputDirectory = outputDir;
-        mojo.attributes = Map.of(
+        mojo.attributes = ImmutableMap.of(
                 "toc", "left",
                 "source-highlighter", "coderay");
         // replace some options

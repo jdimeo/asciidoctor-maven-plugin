@@ -1,10 +1,13 @@
 package org.asciidoctor.maven;
 
+import static java.util.Collections.singletonList;
+import static org.asciidoctor.maven.io.TestFilesHelper.newOutputTestDirectory;
+import static org.asciidoctor.maven.test.TestUtils.mockAsciidoctorMojo;
+import static org.assertj.core.api.Assertions.assertThat;
+
 import java.io.File;
 import java.util.Arrays;
-import java.util.Map;
 
-import lombok.SneakyThrows;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.asciidoctor.maven.extensions.ExtensionConfiguration;
@@ -20,10 +23,9 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
-import static java.util.Collections.singletonList;
-import static org.asciidoctor.maven.io.TestFilesHelper.newOutputTestDirectory;
-import static org.asciidoctor.maven.test.TestUtils.mockAsciidoctorMojo;
-import static org.assertj.core.api.Assertions.assertThat;
+import com.google.common.collect.ImmutableMap;
+
+import lombok.SneakyThrows;
 
 /**
  * Specific tests to validate usage of AsciidoctorJ extension in AsciidoctorMojo.
@@ -145,7 +147,7 @@ class AsciidoctorMojoExtensionsTest {
         mojo.sourceDocumentName = "processors-sample.adoc";
         mojo.outputDirectory = outputDir;
         mojo.standalone = true;
-        mojo.attributes = Map.of("toc", "");
+        mojo.attributes = ImmutableMap.of("toc", "");
         mojo.extensions = singletonList(extensionConfiguration("org.asciidoctor.maven.test.processors." + extensionClassName));
         mojo.execute();
         // then
@@ -346,7 +348,7 @@ class AsciidoctorMojoExtensionsTest {
         mojo.sourceDocumentName = "processors-sample.adoc";
         mojo.outputDirectory = outputDir;
         mojo.standalone = true;
-        mojo.attributes = Map.of("toc", "",
+        mojo.attributes = ImmutableMap.of("toc", "",
                 "linkcss", "",
                 "copycss!", "");
         mojo.extensions = Arrays.asList(
@@ -384,7 +386,7 @@ class AsciidoctorMojoExtensionsTest {
         mojo.sourceDocumentName = "processors-sample.adoc";
         mojo.outputDirectory = outputDir;
         mojo.standalone = true;
-        mojo.attributes = Map.of("toc", null, "linkcss!", "");
+        mojo.attributes = ImmutableMap.of("toc", null, "linkcss!", "");
         mojo.execute();
         // then
         AsciidoctorAsserter.assertThat(outputDir, "processors-sample.html")

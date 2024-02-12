@@ -1,7 +1,11 @@
 package org.asciidoctor.maven;
 
+import static org.asciidoctor.maven.AsciidoctorAsserter.assertThat;
+import static org.asciidoctor.maven.io.TestFilesHelper.newOutputTestDirectory;
+import static org.asciidoctor.maven.test.TestUtils.mockAsciidoctorMojo;
+import static org.asciidoctor.maven.test.TestUtils.ResourceBuilder.excludeAll;
+
 import java.io.File;
-import java.util.Map;
 
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
@@ -9,10 +13,7 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
-import static org.asciidoctor.maven.AsciidoctorAsserter.assertThat;
-import static org.asciidoctor.maven.io.TestFilesHelper.newOutputTestDirectory;
-import static org.asciidoctor.maven.test.TestUtils.ResourceBuilder.excludeAll;
-import static org.asciidoctor.maven.test.TestUtils.mockAsciidoctorMojo;
+import com.google.common.collect.ImmutableMap;
 
 /**
  * Opinionated tests to validate Asciidoctor behaviours in end-to-end scenarios.
@@ -31,7 +32,7 @@ class AsciidoctorIntegrationTest {
         // when
         AsciidoctorMojo mojo = mockAsciidoctorMojo();
         mojo.backend = "html";
-        mojo.attributes = Map.of("attribute-missing", "skip");
+        mojo.attributes = ImmutableMap.of("attribute-missing", "skip");
         mojo.sourceDocumentName = "attribute-missing.adoc";
         mojo.sourceDirectory = srcDir;
         mojo.outputDirectory = outputDir;
@@ -51,7 +52,7 @@ class AsciidoctorIntegrationTest {
         // when
         AsciidoctorMojo mojo = mockAsciidoctorMojo();
         mojo.backend = "html";
-        mojo.attributes = Map.of("attribute-missing", "drop");
+        mojo.attributes = ImmutableMap.of("attribute-missing", "drop");
         mojo.sourceDirectory = srcDir;
         mojo.sourceDocumentName = "attribute-missing.adoc";
         mojo.outputDirectory = outputDir;
@@ -72,7 +73,7 @@ class AsciidoctorIntegrationTest {
         // when
         AsciidoctorMojo mojo = mockAsciidoctorMojo();
         mojo.backend = "html";
-        mojo.attributes = Map.of("attribute-missing", "drop-line");
+        mojo.attributes = ImmutableMap.of("attribute-missing", "drop-line");
         mojo.sourceDocumentName = "attribute-missing.adoc";
         mojo.sourceDirectory = srcDir;
         mojo.outputDirectory = outputDir;
@@ -93,7 +94,7 @@ class AsciidoctorIntegrationTest {
         // when
         AsciidoctorMojo mojo = mockAsciidoctorMojo();
         mojo.backend = "html5";
-        mojo.attributes = Map.of("attribute-undefined", "drop");
+        mojo.attributes = ImmutableMap.of("attribute-undefined", "drop");
         mojo.sourceDocumentName = "attribute-undefined.adoc";
         mojo.sourceDirectory = srcDir;
         mojo.outputDirectory = outputDir;
@@ -114,7 +115,7 @@ class AsciidoctorIntegrationTest {
         // when
         AsciidoctorMojo mojo = mockAsciidoctorMojo();
         mojo.backend = "html5";
-        mojo.attributes = Map.of("attribute-undefined", "drop-line");
+        mojo.attributes = ImmutableMap.of("attribute-undefined", "drop-line");
         mojo.sourceDocumentName = "attribute-undefined.adoc";
         mojo.outputDirectory = outputDir;
         mojo.sourceDirectory = srcDir;
@@ -135,7 +136,7 @@ class AsciidoctorIntegrationTest {
         // when
         AsciidoctorMojo mojo = mockAsciidoctorMojo();
         mojo.backend = "html";
-        mojo.attributes = Map.of("source-highlighter", "coderay");
+        mojo.attributes = ImmutableMap.of("source-highlighter", "coderay");
         mojo.sourceDocumentName = "main-document.adoc";
         mojo.sourceDirectory = srcDir;
         mojo.outputDirectory = outputDir;
@@ -155,7 +156,7 @@ class AsciidoctorIntegrationTest {
         // when
         AsciidoctorMojo mojo = mockAsciidoctorMojo();
         mojo.backend = "html";
-        mojo.attributes = Map.of("source-highlighter", "highlight.js");
+        mojo.attributes = ImmutableMap.of("source-highlighter", "highlight.js");
         mojo.sourceDocumentName = "main-document.adoc";
         mojo.sourceDirectory = srcDir;
         mojo.outputDirectory = outputDir;
@@ -176,7 +177,7 @@ class AsciidoctorIntegrationTest {
         // when
         AsciidoctorMojo mojo = mockAsciidoctorMojo();
         mojo.backend = "html";
-        mojo.attributes = Map.of("source-highlighter", "prettify");
+        mojo.attributes = ImmutableMap.of("source-highlighter", "prettify");
         mojo.sourceDocumentName = "main-document.adoc";
         mojo.sourceDirectory = srcDir;
         mojo.outputDirectory = outputDir;
@@ -198,7 +199,7 @@ class AsciidoctorIntegrationTest {
         // when
         AsciidoctorMojo mojo = mockAsciidoctorMojo();
         mojo.backend = "html";
-        mojo.attributes = Map.of(
+        mojo.attributes = ImmutableMap.of(
                 "source-highlighter", "pygments",
                 "pygments-style", "monokai",
                 "pygments-linenums-mode", "inline");
@@ -242,7 +243,7 @@ class AsciidoctorIntegrationTest {
         // when
         AsciidoctorMojo mojo = mockAsciidoctorMojo();
         mojo.backend = "html5";
-        mojo.attributes = Map.of("source-highlighter", "nonExistent");
+        mojo.attributes = ImmutableMap.of("source-highlighter", "nonExistent");
         mojo.sourceDocumentName = "main-document.adoc";
         mojo.sourceDirectory = srcDir;
         mojo.outputDirectory = outputDir;
@@ -283,7 +284,7 @@ class AsciidoctorIntegrationTest {
         // when
         AsciidoctorMojo mojo = mockAsciidoctorMojo();
         mojo.sourceDocumentName = documentName;
-        mojo.attributes = Map.of("allow-uri-read", "true");
+        mojo.attributes = ImmutableMap.of("allow-uri-read", "true");
         mojo.backend = "html5";
         mojo.sourceDirectory = srcDir;
         mojo.outputDirectory = outputDir;
@@ -305,7 +306,7 @@ class AsciidoctorIntegrationTest {
         // when
         AsciidoctorMojo mojo = mockAsciidoctorMojo();
         mojo.backend = "html5";
-        mojo.attributes = Map.of("allow-uri-read", "false");
+        mojo.attributes = ImmutableMap.of("allow-uri-read", "false");
         mojo.sourceDirectory = srcDir;
         mojo.sourceDocumentName = documentName;
         mojo.outputDirectory = outputDir;
@@ -358,7 +359,7 @@ class AsciidoctorIntegrationTest {
         mojo.sourceDocumentName = "book.adoc";
         mojo.outputDirectory = outputDir;
         mojo.standalone = true;
-        mojo.attributes = Map.of("linkcss", "", "copycss!", "");
+        mojo.attributes = ImmutableMap.of("linkcss", "", "copycss!", "");
         mojo.execute();
 
         // then
