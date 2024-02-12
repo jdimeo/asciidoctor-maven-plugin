@@ -1,11 +1,12 @@
 package org.asciidoctor.maven;
 
 import static org.asciidoctor.maven.AsciidoctorAsserter.assertThat;
+import static org.asciidoctor.maven.TestUtils.mockAsciidoctorMojo;
+import static org.asciidoctor.maven.TestUtils.ResourceBuilder.excludeAll;
 import static org.asciidoctor.maven.io.TestFilesHelper.newOutputTestDirectory;
-import static org.asciidoctor.maven.test.TestUtils.mockAsciidoctorMojo;
-import static org.asciidoctor.maven.test.TestUtils.ResourceBuilder.excludeAll;
 
 import java.io.File;
+import java.util.Map;
 
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;

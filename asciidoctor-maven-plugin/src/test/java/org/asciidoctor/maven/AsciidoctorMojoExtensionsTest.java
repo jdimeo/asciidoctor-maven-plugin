@@ -27,6 +27,28 @@ import com.google.common.collect.ImmutableMap;
 
 import lombok.SneakyThrows;
 
+import java.io.File;
+import java.util.Arrays;
+
+import org.apache.maven.plugin.MojoExecutionException;
+import org.apache.maven.plugin.MojoFailureException;
+import org.asciidoctor.maven.extensions.ExtensionConfiguration;
+import org.asciidoctor.maven.io.ConsoleHolder;
+import org.asciidoctor.maven.test.processors.ChangeAttributeValuePreprocessor;
+import org.asciidoctor.maven.test.processors.FailingPreprocessor;
+import org.asciidoctor.maven.test.processors.GistBlockMacroProcessor;
+import org.asciidoctor.maven.test.processors.ManpageInlineMacroProcessor;
+import org.asciidoctor.maven.test.processors.MetaDocinfoProcessor;
+import org.asciidoctor.maven.test.processors.UriIncludeProcessor;
+import org.asciidoctor.maven.test.processors.YellBlockProcessor;
+import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
+
+import com.google.common.collect.ImmutableMap;
+
+import lombok.SneakyThrows;
+
 /**
  * Specific tests to validate usage of AsciidoctorJ extension in AsciidoctorMojo.
  * <p>
