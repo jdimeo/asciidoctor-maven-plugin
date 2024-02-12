@@ -4,7 +4,7 @@ import org.apache.maven.doxia.sink.Sink;
 import org.asciidoctor.ast.Section;
 import org.asciidoctor.ast.StructuralNode;
 import org.asciidoctor.jruby.ast.impl.SectionImpl;
-import org.asciidoctor.maven.site.ast.NodeProcessor;
+import org.asciidoctor.maven.site.parser.NodeProcessor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

@@ -2,11 +2,10 @@ package org.asciidoctor.maven;
 
 import static java.util.Collections.singletonList;
 import static org.asciidoctor.maven.AsciidoctorAsserter.assertThat;
-import static org.asciidoctor.maven.TestUtils.assertEqualsStructure;
-import static org.asciidoctor.maven.TestUtils.mockAsciidoctorMojo;
-import static org.asciidoctor.maven.TestUtils.writeToFile;
-import static org.asciidoctor.maven.TestUtils.ResourceBuilder.excludeAll;
 import static org.asciidoctor.maven.io.TestFilesHelper.newOutputTestDirectory;
+import static org.asciidoctor.maven.test.TestUtils.assertEqualsStructure;
+import static org.asciidoctor.maven.test.TestUtils.mockAsciidoctorMojo;
+import static org.asciidoctor.maven.test.TestUtils.ResourceBuilder.excludeAll;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -25,7 +24,6 @@ import java.util.stream.Collectors;
 import org.apache.commons.io.FileUtils;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
-import org.asciidoctor.maven.TestUtils.ResourceBuilder;
 import org.asciidoctor.maven.extensions.ExtensionConfiguration;
 import org.asciidoctor.maven.io.ConsoleHolder;
 import org.asciidoctor.maven.test.TestUtils.ResourceBuilder;
